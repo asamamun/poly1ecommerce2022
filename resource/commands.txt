@@ -1,0 +1,9 @@
+
+ALTER TABLE subcategories
+ADD FOREIGN KEY (category_id) REFERENCES categories(id);
+
+ALTER TABLE products
+ADD FOREIGN KEY (category_id) REFERENCES categories(id);
+
+ALTER TABLE products
+ADD FOREIGN KEY (subcategory_id) REFERENCES subcategories(id);
