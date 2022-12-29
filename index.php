@@ -32,7 +32,7 @@ $pqr = $conn->query($pq);
 $p = "";
 while($row = $pqr->fetch_assoc()){
 
-$p .= '<div class="card mt-2 col-md-2 d-flex align-items-stretch"><img src="assets/products/'.$row['images'].'" class="card-img-top" alt="..."><div class="card-body"><h3 class="pname">'.$row['name'].'</h3><p class="card-text">'.$row['description'].'</p><p>'.$row['price'].'</p><p><a class="addCartBtn" data-pid="'.$row['id'].'" data-pprice="'.$row['price'].'" href="javascript:void(0)"><i class="bi bi-bag"></i></a></p></div></div>';
+$p .= '<div class="card mt-2 col-md-2 d-flex align-items-stretch"><img src="assets/products/'.$row['images'].'" class="card-img-top" alt="..."><div class="card-body"><a href="product.php?id='.$row["id"].'"><h3 class="pname">'.$row['name'].'</h3></a><p class="card-text">'.$row['description'].'</p><p>'.$row['price'].'</p><p><a class="addCartBtn" data-pid="'.$row['id'].'" data-pprice="'.$row['price'].'" href="javascript:void(0)"><i class="bi bi-bag"></i></a></p></div></div>';
 }
 echo $p;
 ?>

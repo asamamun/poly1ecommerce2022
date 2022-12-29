@@ -33,6 +33,7 @@ class Cart {
         return this.items;
     }
     emptyCart(){
-        this.items = [];
+      this.items = [];
+      localStorage.removeItem('cart');
     }
   }

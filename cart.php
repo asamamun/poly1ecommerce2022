@@ -19,71 +19,76 @@
   <div class="container-fluid">
     <div class="row align-items-start">
       <div class="col-12 col-sm-8 items" id="itemContainer">
-        <!--1-->
-        <div class="cartItem row align-items-start">
-          <div class="col-3 mb-2">
-            <img class="w-100" src="https://badux.co/smc/codepen/birdcage-posters.jpg" alt="art image">
-          </div>
-          <div class="col-5 mb-2">
-            <h6 class="">Dark Art 1</h6>
-            <p class="pl-1 mb-0">20 x 24</p>
-            <p class="pl-1 mb-0">Matte Print</p>
-          </div>
-          <div class="col-2">
-            <p class="cartItemQuantity p-1 text-center">1</p>
-          </div>
-          <div class="col-2">
-            <p id="cartItem1Price">$66</p>
-          </div>
-        </div>
-        <hr>
-        <!--2-->
-        <!-- <div class="cartItem row align-items-start">
-          <div class="col-3 mb-2">
-            <img class="w-100" src="https://badux.co/smc/codepen/birdcage-posters.jpg" alt="art image">
-          </div>
-          <div class="col-5 mb-2">
-            <h6 class="">Dark Art 2</h6>
-            <p class="pl-1 mb-0">20 x 24</p>
-            <p class="pl-1 mb-0">Matte Print</p>
-          </div>
-          <div class="col-2">
-            <p class="cartItemQuantity p-1 text-center">1</p>
-          </div>
-          <div class="col-2">
-            <p id="cartItem1Price">$66</p>
-          </div>
-        </div>
-        <hr> -->
+
       </div>
       <div class="col-12 col-sm-4 p-3 proceed form">
-        <div class="row m-0">
-          <div class="col-sm-8 p-0">
-            <h6>Subtotal</h6>
+            <div class="row m-0">
+              <div class="col-sm-8 p-0">
+                <h6>Subtotal</h6>
+              </div>
+              <div class="col-sm-4 p-0">
+                <p id="subtotal"></p>
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-sm-8 p-0 ">
+                <h6>Tax</h6>
+              </div>
+              <div class="col-sm-4 p-0">
+                <p id="tax"></p>
+              </div>
+            </div>
+            
+            <div class="row mx-0 mb-2">
+              <div class="col-sm-4 p-0 d-inline">
+                <h6>Discount</h6>
+              </div>
+              <div class="col-sm-8 p-0">
+                <input type="text" id="discount" class="form-control" value="0">
+              </div>
+            </div>
+            <hr>
+            <div class="row mx-0 mb-2">
+              <div class="col-sm-8 p-0 d-inline">
+                <h5>Total</h5>
+              </div>
+              <div class="col-sm-4 p-0">
+                <p id="total"></p>
+              </div>
+            </div>
+
+            <div class="row mx-0 mb-2">
+              <div class="col-sm-4 p-0 d-inline">
+                <h6>Payment</h6>
+              </div>
+              <div class="col-sm-8 p-0">
+                <select name="payment" id="payment" class="form-control">
+                  <option value="-1">Select</option>
+                  <option value="cash">Cash</option>
+                  <option value="bkash">bKash</option>
+                  <option value="nogod">Nogod</option>
+                  <option value="cod">Cash On Delivery</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mx-0 mb-2">
+              <div class="col-sm-4 p-0 d-inline">
+                <h6>TrxID</h6>
+              </div>
+              <div class="col-sm-8 p-0">
+                <input type="text" id="trxid" class="form-control">
+              </div>
+            </div>
+            <div class="row mx-0 mb-2">
+              <div class="col-sm-4 p-0 d-inline">
+                <h6>Comment</h6>
+              </div>
+              <div class="col-sm-8 p-0">
+                <textarea name="comment" id="comment" class="form-control"></textarea>
+              </div>
+            </div>
+            <button id="btn-checkout" class="btn btn-outline-danger">Checkout</button>
           </div>
-          <div class="col-sm-4 p-0">
-            <p id="subtotal">$132.00</p>
-          </div>
-        </div>
-        <div class="row m-0">
-          <div class="col-sm-8 p-0 ">
-            <h6>Tax</h6>
-          </div>
-          <div class="col-sm-4 p-0">
-            <p id="tax">$6.40</p>
-          </div>
-        </div>
-        <hr>
-        <div class="row mx-0 mb-2">
-          <div class="col-sm-8 p-0 d-inline">
-            <h5>Total</h5>
-          </div>
-          <div class="col-sm-4 p-0">
-            <p id="total">$138.40</p>
-          </div>
-        </div>
-        <a href="#"><button class="btn btn-outline-warning" id="btn-checkout" class="shopnow"><span>Checkout</span></button></a>
-      </div>
     </div>
   </div>
   </div>
@@ -137,6 +142,52 @@ $(document).ready(function () {
         }
         
     })
+
+          //discount start
+          $("#discount").blur(function(){
+        // alert(5)
+        let amount = Number($(this).val());
+        $("#total").html(Number($("#total").html()) - amount);
+      });
+      //discount end
+      //
+//checkout
+$("#btn-checkout").click(function(){
+        let items = cart.items;
+        let discount = $("#discount").val();
+        let total = Number($("#total").html());
+        let payment = $("#payment").val();
+        let trxid = $("#trxid").val();
+        // alert(trxid.length);
+        let comment = $("#comment").val();
+        if(payment == "-1"){ alert("pls select payment method"); return;}
+        if(payment =="bkash" || payment == "nogod"){
+          if(trxid.length == 0){ alert("Please provide transaction id if you select bkash or nogod"); return;}
+        }
+
+        //ajax post in jquery start
+        $.post("checkout.php",{
+          action:"checkout",
+          t: total,
+          d:discount,
+          p:payment,
+          trx:trxid,
+          c:comment,
+          items:cart.items,
+        },function(d){
+          
+          d = JSON.parse(d)
+          //console.log(d)
+  if(d.success){
+    alert("Your order has been received. Order Id : " + d.invoiceid);
+    cart.emptyCart();
+    location.href = "index.php";;
+  }
+        //ajax post in jquery end
+      }); 
+      }); 
+
+      //
 
 });
     </script>
