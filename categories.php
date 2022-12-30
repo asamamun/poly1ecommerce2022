@@ -1,4 +1,12 @@
 <?php require "inc/connection.php" ?>
+<?php
+if(isset($_GET['cat'])){
+    $id = $_GET['cat'];
+}
+else{
+    exit;
+}
+?>
 <?php require "inc/header.php"; ?>
 
 </head>
@@ -7,38 +15,21 @@
 <!-- menu start -->
 <?php include "inc/navbar.php"; ?>
 <!-- menu end -->
-<!-- carousel start -->
-<?php include "inc/carousel.php"; ?>
-<!-- carousel end -->
-<!-- owl carousel start -->
 
-<!-- owl carousel end -->
-<!-- categories start -->
-<div class="my-2">
-    <strong>Categories: </strong>
-<?php
-$cq = "select * from categories where 1";
-$cqr = $conn->query($cq);
-
-while ( $row= $cqr->fetch_assoc()) {
-    echo "<a class='btn btn-outline-success' href='categories.php?cat=".$row['id']."'>".$row['name']."</a> ";
-}
-?>
-</div>
-<!-- categories end -->
 <!-- product start -->
 <div class="row">
 
 
 <?php
-$pq = "select * from products where hot='1' order by created_at desc";
+$pq = "select products.*,categories.name as catname from products,categories where hot='1' and category_id='".$id."' and products.category_id=categories.id order by products.created_at desc";
 $pqr = $conn->query($pq);
 $p = "";
+$catname = "";
 while($row = $pqr->fetch_assoc()){
-
-$p .= '<div class="card mt-2 col-md-3 d-flex align-items-stretch"><img src="assets/products/'.$row['images'].'" class="card-img-top" alt="..."><div class="card-body"><a href="product.php?id='.$row["id"].'"><h5 class="pname">'.$row['name'].'</h5></a><!--p class="card-text">'.$row['description'].'</p--><p>'.$row['price'].'</p><p><a class="addCartBtn" data-pid="'.$row['id'].'" data-pprice="'.$row['price'].'" href="javascript:void(0)"><i class="bi bi-bag"></i></a></p></div></div>';
+$catname = $row['catname'];
+    $p .= '<div class="card mt-2 col-md-3 d-flex align-items-stretch"><img src="assets/products/'.$row['images'].'" class="card-img-top" alt="..."><div class="card-body"><a href="product.php?id='.$row["id"].'"><h5 class="pname">'.$row['name'].'</h5></a><!--p class="card-text">'.$row['description'].'</p--><p>'.$row['price'].'</p><p><a class="addCartBtn" data-pid="'.$row['id'].'" data-pprice="'.$row['price'].'" href="javascript:void(0)"><i class="bi bi-bag"></i></a></p></div></div>';
 }
-echo $p;
+echo "<h2>Category: ".$catname."</h2>" . $p;
 ?>
 </div>
 <!-- product end -->

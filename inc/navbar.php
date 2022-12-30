@@ -37,9 +37,10 @@ if (session_status() === PHP_SESSION_NONE) {
             Admin
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Category</a></li>
-            <li><a class="dropdown-item" href="#">Subcategory</a></li>
-            <li><a class="dropdown-item" href="#">Product</a></li>
+            <li><a class="dropdown-item" href="admin/dashboard.php">Dashboard</a></li>
+            <li><a class="dropdown-item" href="admin/category.php">Category</a></li>
+            <li><a class="dropdown-item" href="admin/product.php">Product</a></li>
+            <li><a class="dropdown-item" href="admin/orders.php">Orders</a></li>
           </ul>
         </li>
         <?php } ?>
