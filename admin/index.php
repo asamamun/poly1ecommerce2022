@@ -1,3 +1,7 @@
+<?php
+require "inc/adminauth.php";
+header("location:dashboard.php");
+/*
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -685,3 +689,5 @@
         <script src="js/datatables-simple-demo.js"></script>
     </body>
 </html>
+*/
+?>

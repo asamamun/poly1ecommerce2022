@@ -45,7 +45,7 @@
         <label>Quantity</label>
         <input type="number" name="quantity" required> <br>
         <label>Discount(%)</label>
-        <input type="text" name="discount" required> <br>
+        <input type="text" name="discount" required value="0" placeholder="0 means no discount"> <br>
         <label>Hot</label>
         <select name="hot" id="hot">
             <option value="0">Normal</option>
@@ -57,13 +57,13 @@
 </div>
 <!--  -->
 <div id="tableContainer">
-    <table class="table">
+    <table class="table table-sm">
         <tr>
             <th>ID</th>
             <th>Category</th>
             <th>Sub Category</th>
             <th>Name</th>
-            <th>Desc</th>
+            <!-- <th>Desc</th> -->
             <th>Sku</th>
             <th>Image</th>
             <th>Price</th>
@@ -74,23 +74,23 @@
         </tr>
         <tbody>
             <?php
-        $q = "select * from products where 1";
+        $q = "select products.*,categories.name as catname, subcategories.name as scatname from products,categories,subcategories where products.category_id=categories.id and products.subcategory_id=subcategories.id";
         $allp = $conn->query($q);
         $html = "";
         while($row = $allp->fetch_assoc()){
             $html .="<tr>";
             $html .="<td>".$row['id']."</td>";
-            $html .="<td>".$row['category_id']."</td>";
-            $html .="<td>".$row['subcategory_id']."</td>";
+            $html .="<td>".$row['catname']."</td>";
+            $html .="<td>".$row['scatname']."</td>";
             $html .="<td>".$row['name']."</td>";
-            $html .="<td>".$row['description']."</td>";
+            // $html .="<td>".$row['description']."</td>";
             $html .="<td>".$row['sku']."</td>";
             $html .="<td><img src='../assets/products/".$row['images']."' width='120px'/></td>";
             $html .="<td>".$row['price']."</td>";
             $html .="<td>".$row['quantity']."</td>";
             $html .="<td>".$row['discount']."</td>";
-            $html .="<td>".$row['hot']."</td>";
-            $html .="<td>Edit | Delete</td>";
+            $html .="<td class='text-danger'>".($row['hot']=="1"?"<i class='bi bi-camera2'></i>":"0")."</td>";
+            $html .="<td><a href='product/edit.php?id={$row['id']}'><i class='bi bi-pencil-square'></i></a> | <a onclick=\"return confirm('Are you sure want to delete this?');\" href='product/delete.php?id={$row['id']}'><i class='bi bi-trash'></i></a></td>";
             $html .="</tr>";
         }
         echo $html;

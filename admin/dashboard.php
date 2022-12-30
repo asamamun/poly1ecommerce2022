@@ -1,13 +1,19 @@
+<?php require "inc/adminauth.php"; ?>
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && $_SESSION['role']=="2"){
+require "../inc/connection.php";
+$q = "select count(*) as total from products where 1";
+$r = $conn->query($q);
+$totalProducts = $r->fetch_assoc();
+$q = "select count(*) as total from orders where 1";
+$r = $conn->query($q);
+$totalOrders = $r->fetch_assoc();
+$q = "select count(*) as total from users where 1";
+$r = $conn->query($q);
+$totalUsers = $r->fetch_assoc();
+$q = "select count(*) as total from categories where 1";
+$r = $conn->query($q);
+$totalCategories = $r->fetch_assoc();
 
-}
-else{
-    header("location: ../login.php");
-}
 ?>
 <?php require "inc/header.php"; ?>
     </head>
@@ -25,36 +31,36 @@ else{
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
+                                    <div class="card-body">Total Products : <?= $totalProducts['total'] ?></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="product.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
+                                    <div class="card-body">Total Orders : <?= $totalOrders['total'] ?> </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="orders.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
+                                    <div class="card-body">Total Users : <?= $totalUsers['total'] ?></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="users.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
+                                    <div class="card-body">Total Categories: <?= $totalCategories['total'] ?></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="categories.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>

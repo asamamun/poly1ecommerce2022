@@ -1,0 +1,1 @@
+select/add/edit/delete user for users table just like product table

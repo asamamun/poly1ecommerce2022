@@ -23,7 +23,7 @@ else{
   <title>Invoice Number: <?= $invid; ?> </title>
   <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 </head>
-<body>
+<body onload="window.print()">
   
 
 
@@ -63,8 +63,8 @@ else{
               <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
                   class="me-1 fw-bold">Status:</span>
                   <?php if($orderrow['status'] == "pe"){ ?>
-                  <span class="badge bg-warning text-black fw-bold">
-                    Complete
+                  <span class="badge bg-danger text-black fw-bold">
+                    Pending
                   </span></li>
                   <?php } ?>
                   <?php if($orderrow['status'] == "pr"){ ?>
@@ -73,12 +73,12 @@ else{
                   </span></li>
                   <?php } ?>
                   <?php if($orderrow['status'] == "sh"){ ?>
-                  <span class="badge bg-success text-black fw-bold">
+                  <span class="badge bg-info text-black fw-bold">
                     Shipped
                   </span></li>
                   <?php } ?>
                   <?php if($orderrow['status'] == "co"){ ?>
-                  <span class="badge bg-info text-black fw-bold">
+                  <span class="badge bg-success text-black fw-bold">
                     Complete
                   </span></li>
                   <?php } ?>
