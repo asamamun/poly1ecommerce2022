@@ -17,4 +17,4 @@ git clone https://github.com/asamamun/poly1ecommerce2022.git
 }
 </style>
 
-dui to time limitation no more code can be added as the course is ended. Feel free to extend the features.
+due to time limitation no more code can be added as the course is ended. Feel free to extend the features.
